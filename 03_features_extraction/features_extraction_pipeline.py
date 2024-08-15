@@ -1,7 +1,7 @@
 import os
 
 from features_extractor import FeaturesExtractor
-from utils.utils import get_key_points_value, define_key_points_type
+from utils.utils import get_key_points_value, define_key_points_type, define_key_points_value
 from utils.load_data import load_npy_files_per_folder
 from utils.save_data import save_npy_files
 from consts.key_points_info import KEY_POINTS_VALUES
@@ -30,7 +30,7 @@ def extract_all_features(id_: int, npy_files_info: dict, extracted_features_info
     # Defining key_points value and type
     key_points_value = get_key_points_value(KEY_POINTS_VALUES, folder_)
     key_points_type = define_key_points_type(KEY_POINTS_VALUES, folder_)
-    key_points_value_ = define_key_points_type(key_points_value, npy_files_info[id_]["path"])
+    key_points_value_ = define_key_points_value(key_points_value, npy_files_info[id_]["path"])
 
     features_extractor = FeaturesExtractor(key_points_type, key_points_value_)
 
