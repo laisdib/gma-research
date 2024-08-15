@@ -30,9 +30,9 @@ def define_key_points_type(key_points_values: dict, folder: str):
 
     key_points_type = None
 
-    for key, value in key_points_values.items():
+    for key in list(key_points_values.keys()):
         if key in folder:
-            key_points_type = value
+            key_points_type = key
 
     return key_points_type
 
@@ -63,9 +63,10 @@ def define_dataset_path(folder_path: str, dataset: str | None):
     :param dataset: str | None
     :return: str
     """
+
     if dataset is None:
-        dataset_path = os.path.join(folder_path, "treino")
+        dataset_path = folder_path
     else:
-        dataset_path = os.path.join(folder_path, dataset, "treino")
+        dataset_path = os.path.join(folder_path, dataset)
 
     return dataset_path
