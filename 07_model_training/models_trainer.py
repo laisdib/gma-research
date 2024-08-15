@@ -59,7 +59,7 @@ class ModelTrainer:
             train_dir = os.path.join(self.dataframes_features_folder, folder, dataset, "treino")
             test_dir = os.path.join(self.dataframes_features_folder, folder, dataset, "teste")
         else:
-            train_dir = os.path.join(self.dataframes_features_folder, folder,"treino")
+            train_dir = os.path.join(self.dataframes_features_folder, folder, "treino")
             test_dir = os.path.join(self.dataframes_features_folder, folder, "teste")
 
         train_df = pd.read_csv(os.path.join(train_dir, feature_file))
