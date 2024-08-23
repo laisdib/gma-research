@@ -20,7 +20,7 @@ from utils.save_data import create_folders
 class ModelTrainer:
     def __init__(self, root_path: str, models_path: str, evidences_path: str):
         self.root_path = root_path
-        self.dataframes_features_folder = f"{root_path}/dataframes"
+        self.dataframes_features_folder = os.path.join(root_path, "dataframes")
         self.models_path = models_path
         self.evidences_path = evidences_path
 
@@ -37,6 +37,7 @@ class ModelTrainer:
         self.models_metrics = {
             "Key-Points Extractor": [],
             "Dataset": [],
+            "Feature": [],
             "Model": [],
             "Accuracy": [],
             "Precision": [],
@@ -57,9 +58,17 @@ class ModelTrainer:
 
         if dataset:
             train_dir = os.path.join(self.dataframes_features_folder, folder, dataset, "treino")
+
+            if "_Augmented" in folder:
+                folder = folder.replace("_Augmented", '')
+
             test_dir = os.path.join(self.dataframes_features_folder, folder, dataset, "teste")
         else:
             train_dir = os.path.join(self.dataframes_features_folder, folder, "treino")
+
+            if "_Augmented" in folder:
+                folder = folder.replace("_Augmented", '')
+
             test_dir = os.path.join(self.dataframes_features_folder, folder, "teste")
 
         train_df = pd.read_csv(os.path.join(train_dir, feature_file))
@@ -127,6 +136,7 @@ class ModelTrainer:
 
                 self.models_metrics["Key-Points Extractor"].append(folder)
                 self.models_metrics["Dataset"].append(dataset if dataset else '-')
+                self.models_metrics["Feature"].append(feature_name)
                 self.models_metrics["Model"].append(model_name)
                 self.models_metrics["Accuracy"].append(accuracy)
                 self.models_metrics["Precision"].append(precision)
@@ -155,5 +165,5 @@ class ModelTrainer:
 
     def save_metrics(self):
         df = pd.DataFrame(self.models_metrics)
-        df_path = os.path.join(self.evidences_path, "models_metrics.csv")
+        df_path = os.path.join(self.evidences_path, "models_metrics_OpenPose_Revised.csv")
         df.to_csv(df_path, index=False)

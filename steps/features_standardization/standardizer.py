@@ -59,7 +59,7 @@ class FeaturesStandardizer:
 
         return normalized_features
 
-    def standardize_features(self, dataset: str | None = None):
+    def standardize_features(self, dataset: str | None):
         """
         Standardizes features according Z-score normalization.
 

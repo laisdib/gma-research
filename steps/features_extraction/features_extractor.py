@@ -1,13 +1,13 @@
 import numpy as np
 
 from consts import mediapipe_info, openpose_info
-from features.hoad2d_extractor import HOAD2DExtractor
-from features.horjo2d_extractor import HORJO2DExtractor
-from features.horjad2d_extractor import HORJAD2DExtractor
-from features.fft_jd_extractor import FFTJDExtractor
-from features.fft_jo_extractor import FFTJOExtractor
-from features.hojo2d_extractor import HOJO2DExtractor
-from features.hojd2d_extractor import HOJD2DExtractor
+from steps.features_extraction.features.hoad2d_extractor import HOAD2DExtractor
+from steps.features_extraction.features.horjo2d_extractor import HORJO2DExtractor
+from steps.features_extraction.features.horjad2d_extractor import HORJAD2DExtractor
+from steps.features_extraction.features.fft_jd_extractor import FFTJDExtractor
+from steps.features_extraction.features.fft_jo_extractor import FFTJOExtractor
+from steps.features_extraction.features.hojo2d_extractor import HOJO2DExtractor
+from steps.features_extraction.features.hojd2d_extractor import HOJD2DExtractor
 
 
 class FeaturesExtractor:

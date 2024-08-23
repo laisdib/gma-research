@@ -1,6 +1,6 @@
 import os
 
-from features_extractor import FeaturesExtractor
+from steps.features_extraction.features_extractor import FeaturesExtractor
 from utils.utils import get_key_points_value, define_key_points_type, define_key_points_value
 from utils.load_data import load_npy_files_per_folder
 from utils.save_data import save_npy_files
@@ -47,21 +47,19 @@ def extract_all_features(id_: int, npy_files_info: dict, extracted_features_info
         )
 
 
-root_path = "../data"
-normalized_key_points_folder = f"{root_path}/key-points/normalized"
+def features_extraction_pipeline(normalized_key_points_folder):
+    for folder in os.listdir(normalized_key_points_folder):
+        # Loading .npy files
+        folder_path = os.path.join(normalized_key_points_folder, folder)
+        normalized_npy_files = load_npy_files_per_folder(folder_path)
 
-for folder in os.listdir(normalized_key_points_folder):
-    # Loading .npy files
-    folder_path = os.path.join(normalized_key_points_folder, folder)
-    normalized_npy_files = load_npy_files_per_folder(folder_path)
+        # Defining path to save features
+        root_path = normalized_npy_files["root"].replace("key-points", "features")
+        root_path = root_path.replace("normalized", "non_standardized")
+        extracted_features = {"root": root_path}
 
-    # Defining path to save features
-    root_path = normalized_npy_files["root"].replace("key-points", "features")
-    root_path = root_path.replace("normalized", "non_standardized")
-    extracted_features = {"root": root_path}
+        # Extracting and saving features
+        for i in list(normalized_npy_files.keys())[1:]:
+            extract_all_features(i, normalized_npy_files, extracted_features, folder)
 
-    # Extracting and saving features
-    for i in list(normalized_npy_files.keys())[1:]:
-        extract_all_features(i, normalized_npy_files, extracted_features, folder)
-
-    save_npy_files(extracted_features, is_features=True)
+        save_npy_files(extracted_features, is_features=True)
