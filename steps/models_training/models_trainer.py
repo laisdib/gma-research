@@ -165,5 +165,5 @@ class ModelTrainer:
 
     def save_metrics(self):
         df = pd.DataFrame(self.models_metrics)
-        df_path = os.path.join(self.evidences_path, "models_metrics_OpenPose_Revised.csv")
+        df_path = os.path.join(self.evidences_path, "models_metrics.csv")
         df.to_csv(df_path, index=False)
